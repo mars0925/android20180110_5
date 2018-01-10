@@ -36,20 +36,24 @@ public class MainActivity extends AppCompatActivity {
                     conn.connect();
                     InputStream inputStream = conn.getInputStream();
                     InputStreamReader isr = new InputStreamReader(inputStream);
+                    ////將實體isr丟到讀取器br
                     BufferedReader br = new BufferedReader(isr);
+                    //建立字串集合放字串
                     StringBuilder sb = new StringBuilder();
                     String str;
-
-                    while ((str = br.readLine()) != null)
+                    //還有內容的時候 把內容加到 StringBuilder
+                    while ((str = br.readLine()) != null) //readLine()讀取一整行
                     {
                         sb.append(str);
                     }
                     String str1 = sb.toString();
                     Log.d("NET", str1);
+                    //搜索字串位置
                     int index1 = str1.indexOf("日圓 (JPY)");
                     int index2 = str1.indexOf("本行現金賣出", index1);
                     int index3 = str1.indexOf("0.266", index2);
                     Log.d("NET", "index1:" + index1 + "index2:" + index2 + "index3:" + index3);
+                    //在本行現金賣出後第56字元到61字元
                     String data1 = str1.substring(index2+56, index2+61);
                     Log.d("NET", data1);
                     br.close();
